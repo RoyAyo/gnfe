@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roy's Game Night</title>
+    <style>
+        input[type=text], input[type=number], select {
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        
+        input[type=submit], button {
+          width: 100%;
+          background-color: #4CAF50;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        
+        input[type=submit]:hover {
+          background-color: #45a049;
+        }
+        
+        div {
+          border-radius: 5px;
+          background-color: #f2f2f2;
+          padding: 20px;
+        }
+        </style>
+</head>
+<body>
+    <div>
+        Name: <input type="text" placeholder="Name" id="name"/>
+        Code (4 digits, do not tell anyone): <input type="number" placeholder="Code" max="4" id="code" />
+        Coming From: <input type="text" placeholder="Yaba" max="4" id="add" />
+        <button onclick="createUser()">
+            Submit
+        </button>
+    </div>
+    <script>
+        const createUser = async () => {
+            try {
+                const body = JSON.stringify({
+                       name: document.getElementById('name').value,
+                       code: document.getElementById('code').value,
+                       comingFrom: document.getElementById('add').value
+                })
+                let res = await fetch('http://localhost:3000/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body,
+                })
+                if(res.status === 200) {
+                    console.log('Created user successfully')
+                }
+            } catch (error) {
+                console.log(error.message);
+                alert(error.message);
+            }
+        }
+    </script>
+</body>
+</html>

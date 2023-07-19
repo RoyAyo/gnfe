@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roy's Game Night</title>
+    <style>
+        input[type=number] {
+          width: 6%;
+          padding: 8px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        
+        button {
+          width: 100%;
+          background-color: #4CAF50;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        
+        input[type=submit]:hover {
+          background-color: #45a049;
+        }
+        
+        div {
+          border-radius: 5px;
+          background-color: #f2f2f2;
+          padding: 20px;
+        }
+        </style>
+</head>
+<body>
+    <div>
+        <h2>Amount on Players: <span id="amt"></span></h2>
+        <p>
+            Group 1: <span id="group1"></span> 
+        </p>
+        <p>
+            Group 2: <span id="group2"></span>
+        </p>
+        <p>
+            Group 3: <span id="group3"></span>
+        </p>
+        <p>
+            Group 4: <span id="group4"></span>
+        </p>
+        <p>
+            Group 5: <span id="group5"></span>
+        </p>
+        <p>
+            Group 6: <span id="group6"></span>
+        </p>
+        <p>
+            Group 7: <span id="group7"></span>
+        </p>
+        <p>
+            Group 8: <span id="group8"></span>
+        </p>
+    </div>
+    <div>
+        Number of Players: <input type="number" placeholder="number of players" max="1" id="n" value=1 />
+        <button onclick="createUser()">
+            Shuffle
+        </button>
+    </div>
+    <script>
+        const createUser = async () => {
+            try {
+                const n = document.getElementById('n').value
+                let res = await fetch(`http://localhost:3000/randomize?n=${n}`)
+                if(res.status === 200) {
+                    res = await res.json();
+                    const data = res.data;
+                    const dataUsers = data.users;
+                    for (let index = 0; index < 8; index++) {
+                        const users = dataUsers[index];
+                        let html = '';
+                        let i = 1
+                        users.forEach(user => {
+                            html += `${user.name}${(n <= 1 || i === users.length) ? '.' : ', '}`
+                            i++;
+                        })
+                        document.getElementById(`group${index + 1}`).innerHTML = `<b>${html}</b>`
+                    }
+                    document.getElementById('amt').innerHTML = `$${data.amount}`
+                }
+            } catch (error) {
+                console.log(error.message);
+                alert(error.message);
+            }
+        }
+    </script>
+</body>
+</html>
