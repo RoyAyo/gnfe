@@ -55,7 +55,7 @@
                        code: document.getElementById('code').value,
                        comingFrom: document.getElementById('add').value
                 })
-                let res = await fetch('https://roygames.xyz:3000/server/add', {
+                let res = await fetch('https://roygames.xyz/server/add', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -63,10 +63,10 @@
                     body,
                 })
                 if(res.status === 200) {
-                    console.log('Created user successfully')
+                    alert('We will be expecting you on the 29th!')
                 }
             } catch (error) {
-                console.log(error.message);
+                console.log(error);
                 alert(error.message);
             }
         }
