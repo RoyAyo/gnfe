@@ -55,7 +55,7 @@
                        code: document.getElementById('code').value,
                        comingFrom: document.getElementById('add').value
                 })
-                let res = await fetch('http://roygames.xyz:3000/add', {
+                let res = await fetch('http://roygames.xyz:3000/server/add', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
