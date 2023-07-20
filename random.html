@@ -76,7 +76,7 @@
         const createUser = async () => {
             try {
                 const n = document.getElementById('n').value
-                let res = await fetch(`http://roygames.xyz:3000/server/randomize?n=${n}`)
+                let res = await fetch(`https://roygames.xyz:3000/server/randomize?n=${n}`)
                 if(res.status === 200) {
                     res = await res.json();
                     const data = res.data;

@@ -63,7 +63,7 @@
         const checkGroup = async () => {
             try {
                 const code = document.getElementById('code').value
-                let res = await fetch(`http://roygames.xyz:3000/server/check-group?code=${code}`)
+                let res = await fetch(`https://roygames.xyz:3000/server/check-group?code=${code}`)
                 if(res.status === 200) {
                     res = await res.json();
                     const data = res.data;
